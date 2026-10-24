@@ -1,22 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<kcfg xmlns="http://www.kde.org/standards/kcfg/1.0"
-      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<kcfg 
+    xmlns="http://www.kde.org/standards/kcfg/1.0"
+    
+    
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
       xsi:schemaLocation="http://www.kde.org/standards/kcfg/1.0
       http://www.kde.org/standards/kcfg/1.0/kcfg.xsd" >
     <kcfgfile name=""/>
-
     <group name="General">
         <entry name="refresh" type="Int">
             <default>300</default>
         </entry>
         <entry name="url" type="String">
-            <default>https://dot.kde.org/rss.xml</default>
+            <default>https://www.merriam-webster.com/wotd/feed/rss2</default>
         </entry>
         <entry name="title" type="String">
-            <default></default>
+            <default>Merriam-Webster Word of the Day</default>
         </entry>
         <entry name="headerColor" type="String">
-            <default>#4682b4</default>
+            <default>#d71920</default>
         </entry>
         <entry name="listOpacity" type="Int">
             <default>80</default>
@@ -24,6 +26,11 @@
         <entry name="animateBusyIndicator" type="Bool">
             <default>true</default>
         </entry>
+        <entry name="titleSize" type="Int">
+            <default>36</default>
+        </entry>
+        <entry name="descriptionSize" type="Int">
+            <default>24</default>
+        </entry>
     </group>
-        
 </kcfg>

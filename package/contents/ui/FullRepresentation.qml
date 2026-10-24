@@ -2,7 +2,6 @@ import QtQuick 2.15
 import QtQml.XmlListModel
 import QtQuick.Controls
 
-import org.kde.kirigami as Kirigami
 import org.kde.plasma.core as PlasmaCore
 import org.kde.plasma.plasmoid
 
@@ -16,6 +15,8 @@ Item {
   property int refresh: 1000 * plasmoid.configuration.refresh
   property var headerColor: plasmoid.configuration.headerColor
   property var listOpacity: plasmoid.configuration.listOpacity
+  property var titleSize: plasmoid.configuration.titleSize
+  property var descriptionSize: plasmoid.configuration.descriptionSize
 
   function stripString (str) {
     var regex = /(<img.*?>)/gi;
@@ -56,8 +57,9 @@ Item {
     Rectangle {
       height: layout.height
       width: thefeed.width
-      color: Kirigami.Theme.backgroundColor
+      color: "white"
       Component.onCompleted: busyIndicator.isBusy = false
+
 
       Item {
         height: layout.height
@@ -65,41 +67,39 @@ Item {
 
         Column {
           id: layout
+          padding: 10
+          Rectangle {
+            width: thefeed.width - 20
+            height: 4
+            color: headerColor
+          }
           Row {
+            topPadding: titleSize / 2 - 5
+            bottomPadding: titleSize / 2
             Text {
-              width: thefeed.width
+              width: thefeed.width - 20
               wrapMode: Text.WordWrap
-              font.pixelSize: 12
-              color: Kirigami.Theme.textColor
+              font.pixelSize: titleSize
+              color: '#00003c'
               font.bold: true
               text: title
+              horizontalAlignment: Text.AlignHCenter
             }
+          }
+          Rectangle {
+            width: thefeed.width - 20
+            height: 4
+            color: headerColor
           }
           Row {
             Text {
-              width: thefeed.width
+              width: thefeed.width - 20
               wrapMode: Text.WordWrap
-              font.pixelSize: 9
-              color: headerColor
-              font.bold: false
-              text: pubDate
-            }
-          }
-          Row {
-            Text {
-              width: thefeed.width
-              wrapMode: Text.WordWrap
-              font.pixelSize: 12
-              color: Kirigami.Theme.textColor
+              font.pixelSize: descriptionSize
+              color: "black"
               font.bold: false
               text: stripString(description)
-            }
-          }
-          Row {
-            Rectangle {
-              width: thefeed.width
-              color: Kirigami.Theme.textColor
-              height: 1
+              linkColor: "#000066"
             }
           }
         }
@@ -115,55 +115,16 @@ Item {
     }
   }
 
-  Component {
-    id: header
-    Rectangle {
-      width: thefeed.width
-      height: 19
-      color: Kirigami.Theme.backgroundColor
-      Item {
-        width: thefeed.width
-        height: 19
-        Text {
-          horizontalAlignment: Text.AlignRight
-          width: thefeed.width
-          height: 8
-          font.pixelSize: 9
-          text: feedTitle.trim() === "" ? url : feedTitle
-          color: headerColor
-        }
-
-        Rectangle {
-          y: 11
-          width: thefeed.width
-          height: 8
-          color: headerColor
-        }
-      }
-    }
-  }
-
-  Component {
-    id: footer
-    Rectangle {
-      width: thefeed.width
-      height: 8
-      color: headerColor
-    }
-  }
-
   ListView {
     id: thefeed
     opacity: listOpacity / 100
     maximumFlickVelocity: 2500
     clip: true
-    width: parent.width-20
+    width: parent.width
     anchors.fill: parent
     spacing: 2
     model: xmlModel
     delegate: feedDelegate
-    header: header
-    footer: footer
   }
 
   Item {
@@ -185,14 +146,6 @@ Item {
       id: animated
       running: isBusy && animate
       anchors.centerIn: parent
-    }
-
-    Kirigami.Icon {
-      id: icon
-      source: "view-refresh"
-      anchors.centerIn: parent
-      width: animated.width
-      height: width
     }
   }
 

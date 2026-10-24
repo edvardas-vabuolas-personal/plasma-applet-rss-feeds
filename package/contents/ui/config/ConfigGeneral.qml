@@ -12,6 +12,9 @@ Item {
   property alias cfg_headerColor: headerColorDialog.selectedColor
   property alias cfg_listOpacity: listOpacity.value
   property alias cfg_animateBusyIndicator: animateBusyIndicator.checked
+  property alias cfg_titleSize: titleSize.value
+  property alias cfg_descriptionSize: descriptionSize.value
+
 
   GridLayout {
     id: generalConfig
@@ -27,7 +30,25 @@ Item {
     SpinBox {
       id: refresh
       from: 1
-      to: 1800
+      to: 60 * 60 * 12
+    }
+    Text {
+      text: "Title Font Size"
+      color: Kirigami.Theme.textColor
+    }
+    SpinBox {
+      id: titleSize
+      from: 1
+      to: 100
+    }
+    Text {
+      text: "Description Size"
+      color: Kirigami.Theme.textColor
+    }
+    SpinBox {
+      id: descriptionSize
+      from: 1
+      to: 100
     }
     Text {
       text: "URL"
